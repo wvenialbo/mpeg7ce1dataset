@@ -125,12 +125,9 @@ int rigid_image(const boost::filesystem::path& p,
             // digital domain) with angles: 9, 36, 45 (composed of 9 
             // and 36 degree rotations), 90 and 150 degrees.
             const double angle[5] = { 9.0, 36.0, 45.0, 90.0, 150.0 },
-                sina[5] = {
-                    0.15643446504023086901010531946717,
-                    0.58778525229247312916870595463907,
-                    0.70710678118654752440084436210485,
-                    1.0, 0.5
-            };
+                         sina[5] = {
+                             0.15643446504023087, 0.58778525229247314,
+                             0.70710678118654746, 1.0, 0.5 };
 
             // File name suffixes
             const char* fs[5] = { "-2", "-3", "-4", "-5", "-6" };
