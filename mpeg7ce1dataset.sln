@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpeg7A", "mpeg7A\mpeg7A.vcxproj", "{C65179E8-3524-4F61-9FA8-1B8E7F9DD1BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpeg7D", "mpeg7D\mpeg7D.vcxproj", "{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C65179E8-3524-4F61-9FA8-1B8E7F9DD1BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C65179E8-3524-4F61-9FA8-1B8E7F9DD1BB}.Debug|Win32.Build.0 = Debug|Win32
+		{C65179E8-3524-4F61-9FA8-1B8E7F9DD1BB}.Release|Win32.ActiveCfg = Release|Win32
+		{C65179E8-3524-4F61-9FA8-1B8E7F9DD1BB}.Release|Win32.Build.0 = Release|Win32
+		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Debug|Win32.Build.0 = Debug|Win32
+		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Release|Win32.ActiveCfg = Release|Win32
+		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
