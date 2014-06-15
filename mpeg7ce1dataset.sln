@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpeg7A", "mpeg7A\mpeg7A.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpeg7D", "mpeg7D\mpeg7D.vcxproj", "{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpeg7contour", "mpeg7contour\mpeg7contour.vcxproj", "{D5AEC54C-FE89-4CE0-804D-F4466EA5259C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Debug|Win32.Build.0 = Debug|Win32
 		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Release|Win32.ActiveCfg = Release|Win32
 		{18F08DE9-F379-4ED4-9CC3-0CB26FAE87BB}.Release|Win32.Build.0 = Release|Win32
+		{D5AEC54C-FE89-4CE0-804D-F4466EA5259C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D5AEC54C-FE89-4CE0-804D-F4466EA5259C}.Debug|Win32.Build.0 = Debug|Win32
+		{D5AEC54C-FE89-4CE0-804D-F4466EA5259C}.Release|Win32.ActiveCfg = Release|Win32
+		{D5AEC54C-FE89-4CE0-804D-F4466EA5259C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

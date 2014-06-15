@@ -1,0 +1,35 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Deprecated versions
+ocvtest
+
+# Backup files, desktop.ini, and .ssh folder
+*.bak
+desktop.ini
+.ssh
+Debug
+Release
+
+# IDE DBs
+*.sdf
+*.opensdf
