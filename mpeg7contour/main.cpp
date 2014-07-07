@@ -10,7 +10,8 @@
 
 
 int scan_file(const boost::filesystem::path& p, 
-              const boost::filesystem::path& q);
+              const boost::filesystem::path& q,
+              const bool invert);
 
 
 int main(const int argc, const char* argv[])
@@ -18,16 +19,23 @@ int main(const int argc, const char* argv[])
     using namespace boost::filesystem;
     using namespace std;
 
-    if (argc < 3)
+    const bool invert = (argv[1] == std::string("-i") or
+                         argv[1] == std::string("--invert"));
+
+    if ((!invert and argc != 3) or (invert and argc != 4))
     {
-        cout << "Usage: mpeg7contour <src path> <dst path>\n";
+        cout << "\n"
+                "Usage: mpeg7contour [options] <src path> <dst path>\n\n"
+                "  Options\n"
+                "  -------\n"
+                "  --invert | -i  Invert the source image.\n\n";
         return EXIT_FAILURE;
     }
 
     try
     {
-        const path p = argv[1];
-        const path q = argv[2];
+        const path p = argv[invert ? 2 : 1];
+        const path q = argv[invert ? 3 : 2];
 
         if ( not exists(p) )    // does p exist?
         {
@@ -58,13 +66,11 @@ int main(const int argc, const char* argv[])
 
         if ( exists(q) )    // does q exist?
         {
-            if ( is_directory(q) )  // is q a directory?
+            if ( !is_directory(q) )  // is q a directory?
             {
-                if ( not exists(q / "ctr") )
-                    create_directory(q / "ctr");
-
-                if ( not exists(p / "ctx") )
-                    create_directory(q / "ctx");
+                // q is not a directory!
+                clog << q << " is not a directory\n";
+                return EXIT_FAILURE;
             }
         }
 
@@ -74,7 +80,7 @@ int main(const int argc, const char* argv[])
             return EXIT_FAILURE;
         }
 
-        if (scan_file(p, q) != EXIT_SUCCESS)
+        if (scan_file(p, q, invert) != EXIT_SUCCESS)
             return EXIT_FAILURE;
     }
 

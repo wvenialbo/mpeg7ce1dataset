@@ -8,10 +8,12 @@
 
 
 int contour_image(const boost::filesystem::path& p, 
-                  const boost::filesystem::path& q);
+                  const boost::filesystem::path& q,
+                  const bool invert);
 
 
-int scan_file(const boost::filesystem::path& p, const boost::filesystem::path& q)
+int scan_file(const boost::filesystem::path& p, const boost::filesystem::path& q,
+              const bool invert)
 {
     using namespace boost::filesystem;
     using namespace std;
@@ -22,7 +24,7 @@ int scan_file(const boost::filesystem::path& p, const boost::filesystem::path& q
     {
         if ( is_regular_file(p) )     // is p a regular file?
         {
-            if ( contour_image(p, q) != EXIT_SUCCESS )
+            if ( contour_image(p, q, invert) != EXIT_SUCCESS )
                 status = EXIT_FAILURE;
         }
 
@@ -33,13 +35,13 @@ int scan_file(const boost::filesystem::path& p, const boost::filesystem::path& q
             {
                 if ( is_regular_file(*it) )   // is *it a regular file?   
                 {
-                    if ( contour_image(*it, q) != EXIT_SUCCESS )
+                    if ( contour_image(*it, q, invert) != EXIT_SUCCESS )
                         status = EXIT_FAILURE;
                 }
 
                 else if ( is_directory(*it) )   // is *it a directory?
                 {
-                    if (scan_file(*it, q) != EXIT_SUCCESS)
+                    if (scan_file(*it, q, invert) != EXIT_SUCCESS)
                         status = EXIT_FAILURE;
                 }
 

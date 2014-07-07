@@ -25,7 +25,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="contours.txt" />
-  </ItemGroup>
 </Project>

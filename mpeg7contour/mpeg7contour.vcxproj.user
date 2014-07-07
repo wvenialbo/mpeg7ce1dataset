@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>"D:\Workspace\mpeg7ce1dataset\ocvtest\test\src\fly-1.png" "D:\Workspace\mpeg7ce1dataset\ocvtest\test\src"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"D:\Workspace\mpeg7ce1dataset\ocvtest\in" "D:\Workspace\mpeg7ce1dataset\ocvtest\out"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
