@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ct="http://localhost/contour"
+           targetNamespace="http://localhost/contour"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           xml:lang="en-us">
+
+    <!-- ========== Annotations ======================================== -->
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+            Title: Contour Document Type Schema Definition.
+            Version: 1.0 (Date: 2014‒07‒07).
+            Author: Waldemar Villamayor-Venialbo.
+            E-mail address: wvenialbo@gmail.com.
+            Copyright: © 2014 LCCA–FP—UNA. Todos los derechos reservados.
+        </xs:documentation>
+    </xs:annotation>
+
+    <!-- ========== Elements =========================================== -->
+
+    <!--
+        The term 'shapeElementType' means the type of an element containing
+        some geometrical attributes of the shape enclosed by a contour.
+
+        Attributes:
+        ===========
+
+        area :
+            The area, in pixels, of the shape enclosed by the contour.
+
+        perimeter :
+            The length, in square root of pixels, of the contour curve.
+
+        compactness :
+            The compactness of the shape enclosed by the contour. This
+            is an adimensional measure.
+
+        cx, cy :
+            The x- and y-coordinates of the centroid of the shape enclosed
+            by the contour
+     -->
+    <xs:complexType name="shapeElementType">
+        <xs:attribute name="area"
+                      type="xs:decimal"/>
+        <xs:attribute name="perimeter"
+                      type="xs:decimal"/>
+        <xs:attribute name="compactness"
+                      type="xs:decimal"/>
+        <xs:attribute name="cx"
+                      type="xs:decimal"/>
+        <xs:attribute name="cy"
+                      type="xs:decimal"/>
+    </xs:complexType>
+
+    <!--
+        The term 'spatialElementType' means the type of an element containing
+        the raw Cartesian geometric moments about the origin of the coordinate
+        frame up to order three.
+
+        Attributes:
+        ===========
+
+        m00, m10, m01, m20, m11, m02, m30, m21, m12, m03 :
+            The raw 2-D statistical product moments about the origin.
+     -->
+    <xs:complexType name="spatialElementType">
+        <xs:attribute name="m00"
+                      type="xs:decimal"/>
+        <xs:attribute name="m10"
+                      type="xs:decimal"/>
+        <xs:attribute name="m01"
+                      type="xs:decimal"/>
+        <xs:attribute name="m20"
+                      type="xs:decimal"/>
+        <xs:attribute name="m11"
+                      type="xs:decimal"/>
+        <xs:attribute name="m02"
+                      type="xs:decimal"/>
+        <xs:attribute name="m30"
+                      type="xs:decimal"/>
+        <xs:attribute name="m21"
+                      type="xs:decimal"/>
+        <xs:attribute name="m12"
+                      type="xs:decimal"/>
+        <xs:attribute name="m03"
+                      type="xs:decimal"/>
+    </xs:complexType>
+
+    <!--
+        The term 'centralElementType' means the type of an element containing
+        the raw Cartesian geometric moments about the centroid of the shape up
+        to order three.
+
+        Attributes:
+        ===========
+
+        mu20, mu11, mu02, mu30, mu21, mu12, mu03 :
+            The raw 2-D statistical product moments about the centroid of the
+            shape.
+     -->
+    <xs:complexType name="centralElementType">
+        <xs:attribute name="mu20"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu11"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu02"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu30"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu21"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu12"
+                      type="xs:decimal"/>
+        <xs:attribute name="mu03"
+                      type="xs:decimal"/>
+    </xs:complexType>
+
+    <!--
+        The term 'normalElementType' means the type of an element containing
+        the normalized Cartesian geometric moments about the centroid of the
+        shape up to order three.
+
+        Attributes:
+        ===========
+
+        nu20, nu11, nu02, nu30, nu21, nu12, nu03 :
+            The raw 2-D statistical product moments about the centroid of the
+            shape.
+     -->
+    <xs:complexType name="normalElementType">
+        <xs:attribute name="nu20"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu11"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu02"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu30"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu21"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu12"
+                      type="xs:decimal"/>
+        <xs:attribute name="nu03"
+                      type="xs:decimal"/>
+    </xs:complexType>
+
+    <!--
+        The term 'pathElementType' means the type of an element containing
+        the definition of the chain code describing the path of the contour.
+
+        Attributes:
+        ===========
+
+        vertices :
+            A required positive integer indicating the amount of vertices or
+            nodes in the contour curve.
+
+        chain :
+            A required string containing space separated non-negative
+            integers representing an 8-connected Freeman chain code. The
+            two first numbers are, respectively, the x- and y-coordinates
+            of the contour's starting point.
+
+        8-connected Freeman chain code
+        ------------------------------
+
+        Direction-to-code convention is:
+
+                  3  2  1          Code    Offset     Code    Offset
+                   \ | /             0    (+1,  0)      4     (-1,  0)
+                4 -- x -- 0          1    (+1, +1)      5     (-1, -1)
+                   / | \             2    ( 0, +1)      6     ( 0, -1)
+                  5  6  7            3    (-1, +1)      7     (+1, -1)
+
+        In terms of (dx = x_{i+1} - x_i, dy = y_{i+1} - y_i) comparing the
+        (i+1)-th pixel to the i-th pixel, and converting (dx, dy) pairs to
+        scalar indexes as base-3 numbers according to:
+
+                h = 3 * (dy+1) + (dx+1) = 3dy + dx + 4
+
+                +----+----+------+-----+
+                | dx | dy | Code |  h  |
+                |----+----+------+-----+
+                | +1 |  0 |   0  |  5  | 
+                | +1 | +1 |   1  |  8  | 
+                |  0 | +1 |   2  |  7  | 
+                | -1 | +1 |   3  |  6  | 
+                | -1 |  0 |   4  |  3  |  
+                | -1 | -1 |   5  |  0  | 
+                |  0 | -1 |   6  |  1  | 
+                | +1 | -1 |   7  |  2  | 
+                +----+----+------+-----+
+     -->
+    <xs:complexType name="pathElementType">
+        <xs:attribute name="vertices"
+                      use="required"
+                      type="xs:positiveInteger"/>
+        <xs:attribute name="chain"
+                      use="required"
+                      type="xs:string"/>
+    </xs:complexType>
+
+    <!--
+        The term 'contourElementType' means the type of an element containing
+        the definition of one closed contour, containing shape's attributes
+        and the contour's path.
+        
+        Attributes:
+        ===========
+
+        id :
+            A required positive integer uniquely identifying the current
+            contour within a given image.
+
+        next-sibling :
+            If any, the index of the next sibling contour within the hierarchy
+            of contours in the image.
+
+        previous-sibling :
+            If any, the index of the previous sibling contour within the
+            hierarchy of contours in the image.
+
+        first-child :
+            If any, the index of the first child (or nested) contour within the
+            hierarchy of contours in the image.
+
+        parent :
+            If any, the index of the parent (or enclosing) contour within the
+            hierarchy of contours in the image. If a contour do not have a
+            parent contour, it is an outer contour.
+
+        Nested elements:
+        ================
+
+        shape :
+            Contains some geometrical attributes of the shape enclosed by this
+            contour.
+
+        *-moments :
+            Contains 2-D Cartesian geometric moments up to order three,
+            where the * stands for:
+            - spatial : raw product moments about the origin.
+            - central : raw product moments about the centroid.
+            - normal  : standard product moments about the centroid.
+
+        path :
+            Contains the chain code defining the contour path.
+     -->
+    <xs:complexType name="contourElementType">
+        <xs:sequence>
+            <xs:element name="shape"
+                        type="ct:shapeElementType"/>
+            <xs:element name="spatial-moments"
+                        type="ct:spatialElementType"/>
+            <xs:element name="central-moments"
+                        type="ct:centralElementType"/>
+            <xs:element name="normal-moments"
+                        type="ct:normalElementType"/>
+            <xs:element name="path"
+                        type="ct:pathElementType"/>
+        </xs:sequence>
+        <xs:attribute name="id"
+                      use="required"
+                      type="xs:ID"/>
+        <xs:attribute name="next-sibling"
+                      type="xs:IDREF"/>
+        <xs:attribute name="previous-sibling"
+                      type="xs:IDREF"/>
+        <xs:attribute name="first-child"
+                      type="xs:IDREF"/>
+        <xs:attribute name="parent"
+                      type="xs:IDREF"/>
+    </xs:complexType>
+
+    <!--
+        The term 'canvasElementType' means the type of an element containing
+        information about the image's canvas.
+
+        Attributes:
+        ===========
+
+        width :
+            A required positive integer indicating the width, in square root
+            of pixels, of the image's canvas.
+
+        height :
+            A required positive integer indicating the height, in square root
+            of pixels, of the image's canvas.
+     -->
+    <xs:complexType name="canvasElementType">
+        <xs:attribute name="width"
+                      use="required"
+                      type="xs:positiveInteger"/>
+        <xs:attribute name="height"
+                      use="required"
+                      type="xs:positiveInteger"/>
+    </xs:complexType>
+
+    <!--
+        The term 'silhouette' refers to the description of one or more non-
+        connected silhouettes within the current image.
+        
+        Attributes:
+        ===========
+
+        contours :
+            A positive integer indicating the amount of contours within the
+            image.
+
+        outer-contour-list :
+            If any outer contour is present, a blank space separated list of
+            the IDs of the top level outer contours in the image.
+
+        Nested elements:
+        ================
+
+        contour :
+            Contains the definition of the contours within the image.
+     -->
+    <xs:complexType name="silhouetteElementType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded"
+                        name="contour"
+                        ref="ct:contourElementType"/>
+        </xs:sequence>
+        <xs:attribute name="contours"
+                      ref="xs:positiveInteger"/>
+        <xs:attribute name="outer-contour-list"
+                      ref="xs:IDREFS"/>
+    </xs:complexType>
+
+    <!-- The term automata refers to a collection of automata, or more
+         specifically, to the container of definition of one or more
+         automata, their states and their transitions maps.
+
+         Attributes:
+         ===========
+         size : a required positive integer indicating the amount of
+                automaton definitions in the collection;
+         also uses the versioningAttributes for the entire collection.
+
+         Nested elements:
+         ================
+         automaton : one or more automaton's definition blocks;
+         also includes automataInformation for the automata. -->
+    <xs:element name="ctx">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="canvas"
+                            ref="ct:canvasElementType"/>
+                <xs:element name="silhouette"
+                            ref="ct:silhouetteElementType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
